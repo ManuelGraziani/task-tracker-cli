@@ -1,0 +1,24 @@
+{
+  "name": "task-tracker-cli",
+  "version": "1.0.0",
+  "description": "A command-line application built in Node.js to manage your tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManuelGraziani/task-tracker-cli.git"
+  },
+  "bin": {
+    "task-cli": "./index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Manuel Graziani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ManuelGraziani/task-tracker-cli/issues"
+  },
+  "homepage": "https://github.com/ManuelGraziani/task-tracker-cli#readme"
+}
