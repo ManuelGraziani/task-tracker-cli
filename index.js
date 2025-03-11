@@ -23,20 +23,20 @@ function readTask() {
   return [];
 }
 
-function writeTask (tasks) {
-    fs.writeFileSync(taskFile, JSON.stringify(tasks, null, 2), "utf-8");
+function writeTask(tasks) {
+  fs.writeFileSync(taskFile, JSON.stringify(tasks, null, 2), "utf-8");
 }
 
 function addTask(description) {
   const tasks = readTask();
   const newTask = {
-    id: tasks.length > 0 ? Math.max(...tasks.map(task => task.id)) + 1 : 1,
+    id: tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1,
     description: description,
     status: "todo",
   };
   tasks.push(newTask);
-  writeTask(tasks)
-  console.log(`Task added successfully (ID: ${newTask.id})`)
+  writeTask(tasks);
+  console.log(`Task added successfully (ID: ${newTask.id})`);
 }
 
 function listTasks(status) {
@@ -67,41 +67,72 @@ function listTasks(status) {
     console.log("-------------------------------------");
     filteredTask.forEach((task) => {
       console.log(
-        `${task.id.toString().padEnd(3, ' ')} | ${task.description.padEnd(20, ' ')} | ${task.status}`
+        `${task.id.toString().padEnd(3, " ")} | ${task.description.padEnd(
+          20,
+          " "
+        )} | ${task.status}`
       );
     });
   }
 }
 
 function updateTask(id, newDescription) {
-    const tasks = readTask();
-    const task = tasks.find(task => task.id === parseInt(id))
-    
-    if(task) {
-        task.description  = newDescription
-        writeTask(tasks)
-        console.log(`Task ID ${task.id} updated succesfully`);
-    } else {
-        console.log(`Task ID ${id} not found`);
-    }
+  const tasks = readTask();
+  const task = tasks.find((task) => task.id === parseInt(id));
+
+  if (task) {
+    task.description = newDescription;
+    writeTask(tasks);
+    console.log(`Task ID ${task.id} updated succesfully`);
+  } else {
+    console.log(`Task ID ${id} not found`);
+  }
 }
 
 function deleteTask(id) {
-    const tasks = readTask();
-    const task = tasks.filter(task => task.id !== parseInt(id));
-    
-    if(task.length < tasks.length) {
-        writeTask(task)
-        console.log(`Task ID ${id} deleted succesfully`);
-    } else {
-        console.log(`Task ID ${id} not found`);
-    }
+  const tasks = readTask();
+  const task = tasks.filter((task) => task.id !== parseInt(id));
+
+  if (task.length < tasks.length) {
+    writeTask(task);
+    console.log(`Task ID ${id} deleted succesfully`);
+  } else {
+    console.log(`Task ID ${id} not found`);
+  }
+}
+
+function markInProgress(id) {
+  const tasks = readTask();
+  const task = tasks.find((task) => task.id === parseInt(id));
+
+  if (task) {
+    task.status = "in-progress";
+    writeTask(tasks);
+    console.log(`Task ID ${id} marked in progress`);
+  } else {
+    console.log(`Task ID ${id} not found`);
+  }
+}
+
+function markDone(id) {
+  const tasks = readTask();
+  const task = tasks.find((task) => task.id === parseInt(id));
+
+  if (task) {
+    task.status = "done";
+    writeTask(tasks);
+    console.log(`Task ID ${id} marked done`);
+  } else {
+    console.log(`Task ID ${id} not found`);
+  }
 }
 
 if (args[0] === "add") {
   const taskDescription = args.slice(1).join("");
   if (!taskDescription) {
-    console.log("Please provide a description\nSample: task-cli add <description>");
+    console.log(
+      "Please provide a description\nSample: task-cli add <description>"
+    );
   } else {
     addTask(taskDescription);
   }
@@ -109,18 +140,34 @@ if (args[0] === "add") {
   const status = args[1];
   listTasks(status);
 } else if (args[0] === "update") {
-    const id = args[1]
-    const newDescription = args.slice(2).join(" ");
-    if(!id || !newDescription) {
-        console.log("Please provide an id and a new description\nSample: task-cli update <id> <description>");
-    } else {
-        updateTask(id, newDescription)
-    }
+  const id = args[1];
+  const newDescription = args.slice(2).join(" ");
+  if (!id || !newDescription) {
+    console.log(
+      "Please provide an id and a new description\nSample: task-cli update <id> <description>"
+    );
+  } else {
+    updateTask(id, newDescription);
+  }
 } else if (args[0] === "delete") {
-    const id = args[1]
-    if(!id) {
-        console.log("Please provide an id\nSample: task-cli delete <id>");
-    } else {
-        deleteTask(id)
-    }
+  const id = args[1];
+  if (!id) {
+    console.log("Please provide an id\nSample: task-cli delete <id>");
+  } else {
+    deleteTask(id);
+  }
+} else if (args[0] === "mark-in-progress") {
+  const id = args[1];
+  if (!id) {
+    console.log("Please provide an id\nSample: task-cli mark-in-progress <id>");
+  } else {
+    markInProgress(id);
+  }
+} else if (args[0] === "mark-done") {
+  const id = args[1];
+  if (!id) {
+    console.log("Please provide an id\nSample: task-cli mark-in-progress <id>");
+  } else {
+    markDone(id);
+  }
 }
