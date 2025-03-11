@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import fs from "fs";
+import fs, { writeFile } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -23,6 +23,10 @@ function readTask() {
   return [];
 }
 
+function writeTask (tasks) {
+    fs.writeFileSync(taskFile, JSON.stringify(tasks, null, 2), "utf-8");
+}
+
 function addTask(description) {
   const tasks = readTask();
   const newTask = {
@@ -31,7 +35,8 @@ function addTask(description) {
     status: "todo",
   };
   tasks.push(newTask);
-  fs.writeFileSync(taskFile, JSON.stringify(tasks), "utf-8");
+  writeTask(tasks)
+  console.log(`Task added successfully (ID: ${newTask.id})`)
 }
 
 function listTasks(status) {
@@ -68,15 +73,54 @@ function listTasks(status) {
   }
 }
 
+function updateTask(id, newDescription) {
+    const tasks = readTask();
+    const task = tasks.find(task => task.id === parseInt(id))
+    
+    if(task) {
+        task.description  = newDescription
+        writeTask(tasks)
+        console.log(`Task ID ${task.id} updated succesfully`);
+    } else {
+        console.log(`Task ID ${id} not found`);
+    }
+}
+
+function deleteTask(id) {
+    const tasks = readTask();
+    const task = tasks.filter(task => task.id !== parseInt(id));
+    
+    if(task.length < tasks.length) {
+        writeTask(task)
+        console.log(`Task ID ${id} deleted succesfully`);
+    } else {
+        console.log(`Task ID ${id} not found`);
+    }
+}
+
 if (args[0] === "add") {
   const taskDescription = args.slice(1).join("");
   if (!taskDescription) {
-    console.log("Please provide a description");
-    console.log("Sample: task-cli add <description>");
+    console.log("Please provide a description\nSample: task-cli add <description>");
   } else {
     addTask(taskDescription);
   }
 } else if (args[0] === "list") {
   const status = args[1];
   listTasks(status);
+} else if (args[0] === "update") {
+    const id = args[1]
+    const newDescription = args.slice(2).join(" ");
+    if(!id || !newDescription) {
+        console.log("Please provide an id and a new description\nSample: task-cli update <id> <description>");
+    } else {
+        updateTask(id, newDescription)
+    }
+} else if (args[0] === "delete") {
+    const id = args[1]
+    if(!id) {
+        console.log("Please provide an id\nSample: task-cli delete <id>");
+    } else {
+        deleteTask(id)
+    }
 }
