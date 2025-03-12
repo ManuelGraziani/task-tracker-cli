@@ -9,7 +9,6 @@ const __dirname = path.dirname(__filename);
 const taskFile = path.join(__dirname, "tasks.json");
 
 const args = process.argv.slice(2);
-let id = 0;
 
 if (!fs.existsSync(taskFile)) {
   fs.writeFileSync(taskFile, JSON.stringify([]));
