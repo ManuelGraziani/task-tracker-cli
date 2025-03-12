@@ -170,4 +170,14 @@ if (args[0] === "add") {
   } else {
     markDone(id);
   }
+} else {
+  console.log(
+    "Please provide a command. Available commands:\n" +
+    "  add <description>          - Add a new task\n" +
+    "  list [status]              - List tasks, optionally filtered by status (todo, done, in-progress)\n" +
+    "  update <id> <description>  - Update the description of a task\n" +
+    "  delete <id>                - Delete a task by ID\n" +
+    "  mark-in-progress <id>      - Mark a task as in-progress\n" +
+    "  mark-done <id>             - Mark a task as done"
+  );
 }
