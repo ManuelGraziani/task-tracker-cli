@@ -100,27 +100,25 @@ function deleteTask(id) {
   }
 }
 
-function markInProgress(id) {
+function markTask(id, status) {
   const tasks = readTask();
   const task = tasks.find((task) => task.id === parseInt(id));
 
-  if (task) {
-    task.status = "in-progress";
+  if(task) {
+    switch(status) {
+      case "in-progress":
+        task.status = "in-progress";
+        console.log(`Task ID ${id} marked in progress`);
+        break;
+      case "done":
+        task.status = "done";
+        console.log(`Task ID ${id} marked done`);
+        break;
+      default:
+        console.log("Invalid status");
+        return;
+    }
     writeTask(tasks);
-    console.log(`Task ID ${id} marked in progress`);
-  } else {
-    console.log(`Task ID ${id} not found`);
-  }
-}
-
-function markDone(id) {
-  const tasks = readTask();
-  const task = tasks.find((task) => task.id === parseInt(id));
-
-  if (task) {
-    task.status = "done";
-    writeTask(tasks);
-    console.log(`Task ID ${id} marked done`);
   } else {
     console.log(`Task ID ${id} not found`);
   }
@@ -160,14 +158,14 @@ if (args[0] === "add") {
   if (!id) {
     console.log("Please provide an id\nSample: task-cli mark-in-progress <id>");
   } else {
-    markInProgress(id);
+    markTask(id, "in-progress");
   }
 } else if (args[0] === "mark-done") {
   const id = args[1];
   if (!id) {
     console.log("Please provide an id\nSample: task-cli mark-in-progress <id>");
   } else {
-    markDone(id);
+    markTask(id, "done");
   }
 } else {
   console.log(
