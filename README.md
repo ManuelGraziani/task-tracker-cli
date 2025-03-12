@@ -93,3 +93,7 @@ ID  | Description           | Status
 2   | Finish report         | in-progress
 3   | Call John             | done
 ```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
