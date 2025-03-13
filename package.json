@@ -16,7 +16,7 @@
   "type": "module",
   "keywords": [],
   "author": "Manuel Graziani",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ManuelGraziani/task-tracker-cli/issues"
   },
