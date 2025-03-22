@@ -21,19 +21,23 @@ A simple command-line task management application that helps you keep track of y
 ### Steps
 
 1. Clone this repository or download the source code
-    ```
-    git clone https://github.com/ManuelGraziani/task-tracker-cli.git
-    cd task-tracker-cli
-    ```
-2. Make the script executable
+   ```
+   git clone https://github.com/ManuelGraziani/task-tracker-cli.git
+   cd task-tracker-cli
+   ```
+2. Install dependencies
+   ```
+    npm install
+   ```
+3. Make the script executable
    ```
    chmod +x index.js
    ```
-3. For global usage, you can create a symlink
+4. For global usage, you can create a symlink
    ```
    npm link
    ```
-   
+
 ## Usage
 
 ### Adding a task
@@ -45,11 +49,13 @@ task-cli add "Complete the project report"
 ### Listing tasks
 
 List all tasks:
+
 ```
 task-cli list
 ```
 
 List only tasks with a specific status:
+
 ```
 task-cli list todo
 task-cli list in-progress
@@ -71,11 +77,13 @@ task-cli delete 1
 ### Changing task status
 
 Mark a task as in-progress:
+
 ```
 task-cli mark-in-progress 2
 ```
 
 Mark a task as done:
+
 ```
 task-cli mark-done 3
 ```
