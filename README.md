@@ -85,13 +85,13 @@ task-cli mark-todo 1
 Mark a task as in-progress:
 
 ```
-task-cli mark-in-progress 2
+task-cli mark-in-progress 1
 ```
 
 Mark a task as done:
 
 ```
-task-cli mark-done 3
+task-cli mark-done 1
 ```
 
 ## Task Storage
