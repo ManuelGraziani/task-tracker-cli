@@ -76,6 +76,12 @@ task-cli delete 1
 
 ### Changing task status
 
+Mark a task as todo:
+
+```
+task-cli mark-todo 1
+```
+
 Mark a task as in-progress:
 
 ```
