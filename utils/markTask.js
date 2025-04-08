@@ -15,6 +15,10 @@ export function markTask(id, status) {
           task.status = "done";
           console.log(`Task ID ${id} marked done`);
           break;
+        case "todo":
+          task.status = "todo";
+          console.log(`Task ID ${id} marked todo`);
+          break;
         default:
           console.log("Invalid status");
           return;

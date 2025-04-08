@@ -100,5 +100,18 @@ yargs(hideBin(process.argv))
       markTask(argv.id, "done");
     }
   )
+  .command(
+    "mark-todo <id>",
+    "Mark a task as todo",
+    (yargs) => {
+      yargs.positional("id", {
+        describe: "ID of the task to mark as done",
+        type: "string",
+      });
+    },
+    (argv) => {
+      markTask(argv.id, "todo")
+    }
+  )
   .demandCommand(1, "Please provide a valid command.")
   .help().argv;
